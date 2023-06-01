@@ -1,0 +1,27 @@
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  padding-top: 4px;
+  padding-bottom: 2px;
+  /* padding-left: 8px; */
+
+  border: 2px solid var(--color-font);
+  border-radius: 8px;
+  background-color: var(--color-background);
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: calc(18 / 16);
+  color: var(--color-font-accent);
+}
+
+.link.active {
+  color: #e84a5f;
+}
+
+.wraper {
+  display: flex;
+  gap: 20px;
+}
