@@ -17,13 +17,23 @@ const ContactForm = () => {
     const phone = e.target.elements.number.value;
     const normoliseName = name.toLowerCase();
     const contactFind = items.find(
-      contact =>
-        contact.name.toLowerCase() === normoliseName || contact.phone === phone
+      contact => contact.name.toLowerCase() === normoliseName
     );
+
     if (contactFind) {
-      alert(`${contactFind.name} is alredy contact`);
+      alert(
+        `${contactFind.name} is alredy contact with phone ${contactFind.phone}`
+      );
       return;
     }
+    const contactFindPhone = items.find(contact => contact.phone === phone);
+    if (contactFindPhone) {
+      alert(
+        `${contactFindPhone.name} is alredy contact with phone ${contactFindPhone.phone}`
+      );
+      return;
+    }
+
     dispatch(addContact({ name, number: phone }));
     e.currentTarget.reset();
   };
