@@ -1,13 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { initialState } from './initialStates';
-// import {
-//   getContactsThunk,
-//   createContactsThunk,
-//   deleteContactsThunk,
-// } from '../thunk/thunk';
 import { fetchContacts, addContact, deleteContact } from '../ContactsAPI';
-
-//const tasksInitialState = [];
 
 const handlePending = state => {
   state.contacts = { ...state.contacts, isLoading: true };

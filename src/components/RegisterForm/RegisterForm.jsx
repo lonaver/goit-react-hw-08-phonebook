@@ -1,14 +1,20 @@
 import { useDispatch } from 'react-redux';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+
 import { register } from 'redux/auth/operations';
+import { useAuth } from 'hooks/Auth';
+
 import css from './RegisterForm.module.css';
 import stylesApp from '../App.module.css';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
+  const { isError } = useAuth();
 
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
+
     dispatch(
       register({
         name: form.elements.name.value,
@@ -16,7 +22,11 @@ export const RegisterForm = () => {
         password: form.elements.password.value,
       })
     );
-    form.reset();
+    if (isError) {
+      Notify.failure('try again');
+    } else {
+      form.reset();
+    }
   };
 
   return (

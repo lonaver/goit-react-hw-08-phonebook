@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Blocks } from 'react-loader-spinner';
+import { toast } from 'react-hot-toast';
+
 import { getTasks } from 'redux/selectors';
-//import { createContactsThunk } from '../../thunk/thunk';
 import { addContact } from '../../ContactsAPI';
 
 import styles from './ContactForm.module.css';
@@ -9,7 +11,7 @@ import stylesApp from '../../components/App.module.css';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const { items } = useSelector(getTasks);
+  const { items, isLoading } = useSelector(getTasks);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -21,19 +23,18 @@ const ContactForm = () => {
     );
 
     if (contactFind) {
-      alert(
-        `${contactFind.name} is alredy contact with phone ${contactFind.phone}`
+      toast.error(
+        `${contactFind.name} is alredy contact with phone ${contactFind.number}`
       );
       return;
     }
     const contactFindPhone = items.find(contact => contact.phone === phone);
     if (contactFindPhone) {
-      alert(
-        `${contactFindPhone.name} is alredy contact with phone ${contactFindPhone.phone}`
+      toast.error(
+        `${contactFindPhone.name} is alredy contact with phone ${contactFindPhone.number}`
       );
       return;
     }
-
     dispatch(addContact({ name, number: phone }));
     e.currentTarget.reset();
   };
@@ -63,7 +64,18 @@ const ContactForm = () => {
         />
       </label>
       <button type="submit" className={stylesApp.btn}>
-        Add
+        {isLoading ? (
+          <Blocks
+            visible={true}
+            height="20"
+            width="20"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+          />
+        ) : (
+          'Add'
+        )}
       </button>
     </form>
   );
