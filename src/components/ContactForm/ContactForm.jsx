@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Blocks } from 'react-loader-spinner';
 import { toast } from 'react-hot-toast';
@@ -13,10 +13,18 @@ const ContactForm = () => {
   const dispatch = useDispatch();
   const { items, isLoading } = useSelector(getTasks);
 
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+
+  useEffect(() => {
+    if (isLoading) {
+      setName('');
+      setPhone('');
+    }
+  }, [isLoading, dispatch]);
+
   const handleSubmit = e => {
     e.preventDefault();
-    const name = e.target.elements.name.value;
-    const phone = e.target.elements.number.value;
     const normoliseName = name.toLowerCase();
     const contactFind = items.find(
       contact => contact.name.toLowerCase() === normoliseName
@@ -36,7 +44,6 @@ const ContactForm = () => {
       return;
     }
     dispatch(addContact({ name, number: phone }));
-    e.currentTarget.reset();
   };
 
   return (
@@ -50,6 +57,8 @@ const ContactForm = () => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
       </label>
       <label htmlFor="number" className={stylesApp.label_input}>
@@ -61,6 +70,8 @@ const ContactForm = () => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
         />
       </label>
       <button type="submit" className={stylesApp.btn}>

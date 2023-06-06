@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Blocks } from 'react-loader-spinner';
 
-import { getTasks } from 'redux/selectors';
 import { deleteContact } from '../../ContactsAPI';
 
 import styles from './ContactItem.module.css';
@@ -11,7 +10,9 @@ import stylesApp from '../../components/App.module.css';
 
 const ContactItem = ({ name, phone, id }) => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector(getTasks);
+  const isLoading = useSelector(
+    state => state.contacts.contacts[id]?.isLoading
+  );
 
   const handleDelete = idContact => {
     dispatch(deleteContact(idContact));

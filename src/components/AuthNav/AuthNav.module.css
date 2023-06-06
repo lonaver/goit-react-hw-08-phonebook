@@ -4,8 +4,7 @@
   align-items: center;
   width: 120px;
   padding-top: 4px;
-  padding-bottom: 2px;
-  /* padding-left: 8px; */
+  padding-bottom: 4px;
 
   border: 2px solid var(--color-font);
   border-radius: 8px;
@@ -17,8 +16,9 @@
   color: var(--color-font-accent);
 }
 
-.link.active {
-  color: #e84a5f;
+.active {
+  font-weight: 600;
+  /* color: #e84a5f; */
 }
 
 .wraper {
