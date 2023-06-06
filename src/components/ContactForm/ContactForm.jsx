@@ -36,7 +36,7 @@ const ContactForm = () => {
       );
       return;
     }
-    const contactFindPhone = items.find(contact => contact.phone === phone);
+    const contactFindPhone = items.find(contact => contact.number === phone);
     if (contactFindPhone) {
       toast.error(
         `${contactFindPhone.name} is alredy contact with phone ${contactFindPhone.number}`
