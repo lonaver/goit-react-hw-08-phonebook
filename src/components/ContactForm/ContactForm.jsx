@@ -11,17 +11,17 @@ import stylesApp from '../../components/App.module.css';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const { items, isLoading } = useSelector(getTasks);
+  const { items, isLoading, error } = useSelector(getTasks);
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
   useEffect(() => {
-    if (isLoading) {
+    if (!error && isLoading) {
       setName('');
       setPhone('');
     }
-  }, [isLoading, dispatch]);
+  }, [error, isLoading, dispatch]);
 
   const handleSubmit = e => {
     e.preventDefault();
